@@ -5,25 +5,45 @@ import java.awt.*;
  * Created by Vladlen on 10.04.2017.
  */
 public class addRecord {
-    private JPanel panel;
+    private JFrame frame1;
 
     public addRecord() {
-        panel = new JPanel();
-        /*final JComboBox combo1 = new JComboBox();
-        final JTextField textForCombo1 = new JTextField(10);
-        JButton AddButton = new JButton("Добавить");
-        combo1.setPreferredSize(new Dimension(100, 20));*/
+        frame1 = new JFrame("Добавить запись");
+        frame1.getContentPane().setLayout(new FlowLayout());
+        frame1.setPreferredSize(new Dimension(370, 400));
+        frame1.pack();
+        frame1.setLocationRelativeTo(null);
 
-        panel.setPreferredSize(new Dimension(100, 100));
-        panel.setOpaque(true);
 
-        /*panel.add(combo1);
-        panel.add(textForCombo1);
-        panel.add(AddButton);*/
+        JTextField textNameBook = new JTextField(30);
+        JTextField textFioAuthor = new JTextField(30);
+        JTextField textPublishingHouse = new JTextField(30);
+        JTextField textNumberVolumes = new JTextField(30);
+        JTextField textCirculation = new JTextField(30);
+        JTextField textTotalVolumes = new JTextField(30);
+        JButton addBut = new JButton("Add");
+        addBut.setPreferredSize(new Dimension(250,30));
+
+
+        frame1.add( new JLabel("Название книги"));
+        frame1.add(textNameBook);
+        frame1.add( new JLabel("ФИО автора"));
+        frame1.add(textFioAuthor);
+        frame1.add( new JLabel("Издательство"));
+        frame1.add(textPublishingHouse);
+        frame1.add( new JLabel("Число томов"));
+        frame1.add(textNumberVolumes);
+        frame1.add( new JLabel("Тираж"));
+        frame1.add(textCirculation);
+        frame1.add( new JLabel("Итого томов"));
+        frame1.add(textTotalVolumes);
+        frame1.add(addBut);
+
+        frame1.setVisible(true);
     }
 
-    public JPanel getPanel() {
+    public JFrame getPanel() {
 
-        return panel;
+        return frame1;
     }
 }

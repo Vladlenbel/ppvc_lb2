@@ -1,6 +1,11 @@
 package lab_2;
 
+import lab_2.SearchAndDelStr.BookSearch;
+import lab_2.SearchAndDelStr.CircultationSearch;
+import lab_2.SearchAndDelStr.SearchAbstrClass;
+
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Vladlen on 11.04.2017.
@@ -12,7 +17,7 @@ public class FindCircultation {
     private final JRadioButton jrb2 = new JRadioButton("Меньше");
 
 
-    public FindCircultation() {
+    public FindCircultation(ActionListener actionListener) {
         panel = new JPanel();
 
         panel.add(new JLabel("Тираж"));
@@ -31,21 +36,28 @@ public class FindCircultation {
 
         JButton authBut = new JButton("Поиск");
         panel.add(authBut);
+        authBut.addActionListener(actionListener);
     }
 
     public JPanel getPanel(){
         return panel;
     }
 
-    public JTextField getCirculation(){
-        return circulation;
+    public String getCirculation(){
+        return circulation.getText();
     }
 
     public int getRadioBatton() {
         if (jrb1.isSelected()) {
-            return 1;
+            return 2;
         }
         if (jrb2.isSelected()){return 1;}
         return 0;
+    }
+    public SearchAbstrClass getSearchBook(){
+        if (getCirculation().equals("") || getRadioBatton() == 0){
+            JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
+        }
+        return new CircultationSearch( getCirculation(), getRadioBatton());
     }
 }

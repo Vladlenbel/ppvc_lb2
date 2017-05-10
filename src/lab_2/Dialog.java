@@ -15,6 +15,8 @@ public class Dialog {
    private  FindPublHouseAndFio findPublHouseAndFio;
    private  FindNameBook findNameBook;
    private FindFioAuthrAndNumberVolumes findFioAuthrAndNumberVolumes;
+   private FindCircultation findCircultation;
+   private FindTotalVolumes findTotalVolumes;
     private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 
 
@@ -26,13 +28,15 @@ public class Dialog {
         findPublHouseAndFio = new FindPublHouseAndFio(actionListener);
         findNameBook = new FindNameBook(actionListener);
         findFioAuthrAndNumberVolumes = new FindFioAuthrAndNumberVolumes(actionListener);
+        findCircultation = new FindCircultation(actionListener);
+        findTotalVolumes = new FindTotalVolumes(actionListener);
 
         tabbedPane.add("Поиск по ФИО автора",findFioAuthr.getPanel());
-        tabbedPane.add("Поиск по издатльству и ФОИ автора", findPublHouseAndFio.getPanel());
+        tabbedPane.add("Поиск по издательству и ФИО автора", findPublHouseAndFio.getPanel());
         tabbedPane.add("Поиск по ФИО автора и числу томов", findFioAuthrAndNumberVolumes.getPanel());
         tabbedPane.add("Поиск по названию книги", findNameBook.getPanel());
-        tabbedPane.add("Поиск по тиражу >/< заданной границы", new FindCircultation().getPanel());
-        tabbedPane.add("Поиск по итоговому колличеству томов >/< заданной границы", new FindTotalVolumes().getPanel());
+        tabbedPane.add("Поиск по тиражу >/< заданной границы", findCircultation.getPanel());
+        tabbedPane.add("Поиск по итоговому количеству томов >/< заданной границы", findTotalVolumes.getPanel());
         //tabbedPane.set
 
         //frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +67,11 @@ public class Dialog {
         if (tabbedPane.getSelectedIndex() == 3 ){
             return findNameBook.getSearchBook();
         }
-        return  findFioAuthr.getSearchBook();
+
+        if (tabbedPane.getSelectedIndex() == 4 ){
+            return findCircultation.getSearchBook();
+        }
+        return  findTotalVolumes.getSearchBook();
     }
 
    /* public String getBookName() {

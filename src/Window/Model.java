@@ -18,4 +18,8 @@ public class Model {
     public TableModel getTableModel() {
         return tableModel;
     }
+
+    public void firstPage() {
+        tableModel.firstPage();
+    }
 }

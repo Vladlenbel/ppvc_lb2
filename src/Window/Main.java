@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 
 
 class MainJPanel {
@@ -35,9 +36,17 @@ class MainJPanel {
         JMenuItem jmRserch = new JMenuItem("Поиск записи");
 
         JMenuItem jmFirstP = new JMenuItem("Первая страница");
+        //jmFirstP.setFont(font);
+        menuTable.add(jmFirstP);
+        jmFirstP.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.firstPage();
+                bookTable.updateRecord();
+            }
+        });
         JMenuItem jmLastP = new JMenuItem("Поcледняя страница");
         JMenuItem jmNextP = new JMenuItem("Следующая страница");
-        JMenuItem jmPrevP = new JMenuItem("Предведущая страниц");
+        JMenuItem jmPrevP = new JMenuItem("Предидущая страниц");
 
         menuBar.add(menuTable);
         menuTable.add(jmRadd);
@@ -103,13 +112,13 @@ class MainJPanel {
         delBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DelRecord();
+                new DelRecord(bookTable);
             }
         });
         jmRdel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DelRecord();
+                new DelRecord(bookTable);
             }
         });
 

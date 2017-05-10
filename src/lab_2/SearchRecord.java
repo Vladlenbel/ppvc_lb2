@@ -1,37 +1,68 @@
 package lab_2;
 
+import Model.BookTable;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
+
+import Model.TableModel;
+import Window.BookInfo;
+import lab_2.SearchAndDelStr.SearchBookRecord;
+
 
 /**
  * Created by Vladlen on 11.04.2017.
  */
 public class SearchRecord {
-    private JFrame frame1;
+    private JFrame frame;
+    private Dialog dialog;
+    private BookTable bookTable;
+    private TableModel tableModel;
 
-    public SearchRecord() {
-        frame1 = new JFrame("Добавить запись");
-        final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+    public SearchRecord(TableModel tableModel) {
+        this.tableModel = tableModel;
+        dialog = new Dialog("Поиск записи", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchBook();
+            }
+        });
 
-        tabbedPane.add("Поиск по ФИО автора", new FindFioAuthr().getPanel());
-        tabbedPane.add("Поиск по издательству и ФОИ автора", new FindPublHouseAndFio().getPanel());
-        tabbedPane.add("Поиск по ФИО автора и числу томов", new FindFioAuthrAndNumberVolumes().getPanel());
-        tabbedPane.add("Поиск по названию книги", new FindNameBook().getPanel());
-        /*tabbedPane.add("Задание №5", new FifthTask().getPanel());*/
-
-
-        //frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame1.add(tabbedPane);
-        frame1.setPreferredSize(new Dimension(600, 300));
-        frame1.pack();
-        frame1.setLocationRelativeTo(null);
-        frame1.setVisible(true);
-
-
+        frame = dialog.getFrame();
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
     }
 
-    public JFrame getPanel() {
+    private void searchBook() {
 
-        return frame1;
+       // if (!dialog.getLastName().equals("")) {
+            if (bookTable != null)
+                frame.remove(bookTable);
+            List<BookInfo> searchBook = new SearchBookRecord(dialog.getInfoTabPane()).searchPatternSearchAbstrClass(tableModel.getBookInfo());
+            bookTable = new BookTable();
+            bookTable.getTableModel().getBookInfo().addAll(searchBook);
+            bookTable.updateRecord();
+            //bookTable.setLocation(300,300);
+            frame.add(bookTable,BorderLayout.NORTH);
+
+            frame.setSize(new Dimension(850, 600));
+            frame.revalidate();
+            frame.repaint();
+
+        /*} else {
+            JOptionPane.showMessageDialog
+                    (null, "Информация не корректна", "Ошибка", JOptionPane.ERROR_MESSAGE);
+        }*/
+    }
+
+    public JFrame getFrame() {
+
+        return frame;
     }
 }

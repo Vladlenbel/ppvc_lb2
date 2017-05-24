@@ -19,7 +19,23 @@ public class Model {
         return tableModel;
     }
 
+    public void prevPage() {
+        tableModel.prevPage();
+    }
+
+    public void nextPage() {
+        tableModel.nextPage();
+    }
+
+    public void lastPage() {
+        tableModel.lastPage();
+    }
+
     public void firstPage() {
         tableModel.firstPage();
+    }
+
+    public void setRecordOnPage(int recordOnPage) {
+        tableModel.setRecordOnPage(recordOnPage);
     }
 }

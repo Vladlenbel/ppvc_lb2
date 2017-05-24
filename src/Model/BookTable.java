@@ -16,7 +16,7 @@ import Window.*;
  */
 public class BookTable  extends JComponent {
 
-    private BookInfo bookInfo;
+   // private BookInfo bookInfo;
     private TableModel tableModel;
     private JScrollPane scrollTable;
 
@@ -27,12 +27,39 @@ public class BookTable  extends JComponent {
     }
 
     private void makeTable(){
+        JPanel tablePanel = new JPanel();
+        JTable bookTabless = new JTable(1, 1);
+        int sizeList = tableModel.getBookInfo().size();
+
+        //int recOnPage = 0;
+       int  recOnPage;
+        if (tableModel.getNumberMaxPage()> tableModel.getThisPage() ){
+            recOnPage = tableModel.getRecordOnPage();
+        }
+        else {
+            recOnPage = sizeList - (tableModel.getNumberMaxPage()-1)*tableModel.getRecordOnPage();
+        }
+
+
+
+        Object recordInfos = new String("Страница:" + Integer.toString(tableModel.getThisPage()) + "/" +
+                Integer.toString(tableModel.getNumberMaxPage()) +
+                " Книг на странице:" + Integer.toString(recOnPage) + " Всего книг:" + Integer.toString(sizeList)
+        );
+        bookTabless.setValueAt(recordInfos, 0, 0);
+
+
         /*JTable bookTable;
         bookTable = visualBookInfoToList();*/
 
-        JPanel tablePanel = new JPanel();
+
         tablePanel.setLayout(new BorderLayout());
+        tablePanel.add(bookTabless,BorderLayout.SOUTH);
+
+
         tablePanel.add(visualBookInfoToList(), BorderLayout.NORTH);
+
+
         scrollTable = new JScrollPane(tablePanel);
         scrollTable.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent evt) {
@@ -40,7 +67,7 @@ public class BookTable  extends JComponent {
             }
         });
         add(scrollTable);
-      //  add(makeToolsPanel());
+        add(pageList());
 
        // return bookTable;
     }
@@ -57,9 +84,28 @@ public class BookTable  extends JComponent {
     }
 
     public JTable visualBookInfoToList(){
-        int sizeList = tableModel.getBookInfo().size();
 
-        JTable bookTable = new JTable(sizeList+1, 8);
+        int sizeList = tableModel.getBookInfo().size();
+        int thisPage = tableModel.getThisPage();
+        int recOnPage;// = tableModel.getRecordOnPage();;
+        /*if (sizeList < recOnPage) {
+            recOnPage = sizeList;
+        }
+        else {
+            recOnPage = tableModel.getRecordOnPage();
+        }*/
+
+        if (tableModel.getNumberMaxPage()> thisPage ){
+            recOnPage = tableModel.getRecordOnPage();
+        }
+        else {
+            recOnPage = sizeList - (tableModel.getNumberMaxPage()-1)*tableModel.getRecordOnPage();
+        }
+
+
+
+       // List<BookInfo> books = tableModel.getBookInfo();
+        JTable bookTable = new JTable(recOnPage+1, 8);
         bookTable.setLayout(new GridBagLayout());
         add(bookTable);
         Object[] columnsHeaders = new String[]{"Название книги", "Имя автора", "Фамилия автора","Отчество автора","Издательство",
@@ -69,22 +115,35 @@ public class BookTable  extends JComponent {
             bookTable.setValueAt(columnsHeaders[i], 0, i);
         }
 
-        for (int indList = 0; indList < sizeList; indList++) {
-            Object[] visual = new String[]{tableModel.getBookInfo().get(indList).getBookName(),
-                    tableModel.getBookInfo().get(indList).getFirstName(),
-                    tableModel.getBookInfo().get(indList).getLastName(),
-                    tableModel.getBookInfo().get(indList).getFatherName(),
-                    tableModel.getBookInfo().get(indList).getPublishingHouse(),
-                    Integer.toString(tableModel.getBookInfo().get(indList).getNumberVolumes()),
-                    Integer.toString(tableModel.getBookInfo().get(indList).getCirculation()),
-                    Integer.toString(tableModel.getBookInfo().get(indList).getTotalVolumes())};
 
-            for (int j = 0; j < 8; j++) {
-                bookTable.setValueAt(visual[j], indList+1, j);
-            }
-            //frame.add(bookTable);
-            //frame.setVisible(true);
+        int indList;
+        int endIndList = recOnPage + (thisPage-1)*recOnPage;
+        if (endIndList > sizeList){
+            endIndList = sizeList;
         }
+
+
+            for ( indList = (thisPage-1)*recOnPage;  indList < endIndList; indList++) {
+                Object[] visual = new String[]{tableModel.getBookInfo().get(indList).getBookName(),
+                        tableModel.getBookInfo().get(indList).getFirstName(),
+                        tableModel.getBookInfo().get(indList).getLastName(),
+                        tableModel.getBookInfo().get(indList).getFatherName(),
+                        tableModel.getBookInfo().get(indList).getPublishingHouse(),
+                        Integer.toString(tableModel.getBookInfo().get(indList).getNumberVolumes()),
+                        Integer.toString(tableModel.getBookInfo().get(indList).getCirculation()),
+                        Integer.toString(tableModel.getBookInfo().get(indList).getTotalVolumes())};
+
+                for (int j = 0; j < 8; j++) {
+                    bookTable.setValueAt(visual[j], indList - (thisPage-1)*recOnPage + 1, j);
+                }
+                //frame.add(bookTable);
+                //frame.setVisible(true);
+            }
+
+
+
+
+
         return bookTable;
     }
     private void updateScrollTable() {
@@ -92,37 +151,89 @@ public class BookTable  extends JComponent {
         scrollTable.repaint();
     }
 
-  /*  private JToolBar makeToolsPanel() {
+    private JToolBar pageList() {
 
-        JToolBar panel = new JToolBar();
-        panel.add(AddComponent.makeButton(new JButton(), "first.png", new ActionListener() {
+        JToolBar pageList = new JToolBar();
+        pageList.setRollover(true);
+
+        ImageIcon firstP = new ImageIcon(".\\src\\View\\images\\first.png");
+        JButton firstPage = new JButton(firstP);
+        pageList.add(firstPage);
+
+        firstPage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel.firstPage();
+                updateRecord();
+            }
+        });
+
+        ImageIcon lastP = new ImageIcon(".\\src\\View\\images\\last.png");
+        JButton lastPage = new JButton(lastP);
+        pageList.add(lastPage);
+
+        lastPage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel.lastPage();
+                updateRecord();
+            }
+        });
+
+        ImageIcon prevP = new ImageIcon(".\\src\\View\\images\\prev.png");
+        JButton prevPage = new JButton(prevP);
+        pageList.add(prevPage);
+
+        prevPage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel.prevPage();
+                updateRecord();
+            }
+        });
+
+        ImageIcon nextP = new ImageIcon(".\\src\\View\\images\\next.png");
+        JButton nextPage = new JButton(nextP);
+        pageList.add(nextPage);
+
+        nextPage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel.nextPage();
+                updateRecord();
+            }
+        });
+
+
+
+       /* pageList.add(AddComponent.makeButton(new JButton(), "first.png", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 tableModel.firstPage();
                 updateRecord();
             }
         }));
 
-        panel.add(AddComponent.makeButton(new JButton(), "last.png", new ActionListener() {
+        pageList.add(AddComponent.makeButton(new JButton(), "last.png", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 tableModel.lastPage();
                 updateRecord();
             }
         }));
-        panel.add(AddComponent.makeButton(new JButton(), "prev.png", new ActionListener() {
+        pageList.add(AddComponent.makeButton(new JButton(), "prev.png", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 tableModel.prevPage();
                 updateRecord();
             }
         }));
-        panel.add(AddComponent.makeButton(new JButton(), "next.png", new ActionListener() {
+        pageList.add(AddComponent.makeButton(new JButton(), "next.png", new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 tableModel.nextPage();
                 updateRecord();
             }
-        }));
+        }));*/
         String[] studentsOnPage = {"5","10","50"};
         JComboBox sizeBox = new JComboBox(studentsOnPage);
-        sizeBox.setSelectedIndex(Arrays.asList(studentsOnPage).indexOf(Integer.toString(tableModel.getBooksOnPage())));
+        sizeBox.setSelectedIndex(Arrays.asList(studentsOnPage).indexOf(Integer.toString(tableModel.getRecordOnPage())));
         sizeBox.setMaximumSize(new Dimension(70,100));
         sizeBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -130,13 +241,14 @@ public class BookTable  extends JComponent {
                 String change = (String) cb.getSelectedItem();
                 int size=Integer.parseInt(change);
                 tableModel.firstPage();
-                tableModel.setBooksOnPage(size);
+                tableModel.setRecordOnPage(size);
                 updateRecord();
             }
         });
 
-        panel.add(sizeBox);
-        return panel;
+        pageList.add(sizeBox);
+        return pageList;
     }
-*/
+
+
 }

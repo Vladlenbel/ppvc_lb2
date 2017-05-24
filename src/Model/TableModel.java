@@ -11,14 +11,16 @@ import java.util.List;
  */
 public class TableModel {
     List<BookInfo> bookInfos;
-    private int currentPage;
-    private int booksOnPage ;
+    private int thisPage;
+    private int recordOnPage;
+
 
     public TableModel(){
 
         bookInfos = new ArrayList<BookInfo>();
-        currentPage = 1;
-        booksOnPage = 5;
+        thisPage = 1;
+        recordOnPage = 5;
+
     }
 
     public List<BookInfo> getBookInfo() {
@@ -33,22 +35,44 @@ public class TableModel {
         bookInfos.add(bookInfo);
     }
 
+    public int getRecordOnPage() {
+        return recordOnPage;
+    }
+
+    public int getThisPage(){
+        return thisPage;
+    }
+
+    public void nextPage(){
+        boolean hasNextPage=bookInfos.size() > recordOnPage * (thisPage - 1) + recordOnPage;
+        if (hasNextPage)
+            thisPage++;
+    }
+
+    public void prevPage(){
+        if (thisPage > 1)
+            thisPage--;
+
+    }
+
     public void firstPage(){
-        if (currentPage > 1)
-            currentPage = 1;
+        if (thisPage > 1)
+            thisPage = 1;
 
     }
 
+    public void lastPage(){
+        if (thisPage != getNumberMaxPage())
+            thisPage = getNumberMaxPage();
 
-    public void setBooksOnPage(int booksOnPage) {
-        this.booksOnPage = booksOnPage;
     }
 
-    public int getBooksOnPage() {
-        return booksOnPage;
+    public int getNumberMaxPage() {
+        return ((bookInfos.size() - 1)/ recordOnPage) + 1;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
+    public void setRecordOnPage(int recordOnPage) {
+        this.recordOnPage = recordOnPage;
     }
+
 }

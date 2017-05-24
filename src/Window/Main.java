@@ -2,7 +2,10 @@ package Window;
 
 import Model.BookTable;
 import lab_2.DelRecord;
+import lab_2.OpenFileRecord;
+import lab_2.SearchAndDelStr.FileWorker;
 import lab_2.SearchRecord;
+import lab_2.View.SaveFileRecord;
 import lab_2.addRecord;
 
 import javax.swing.*;
@@ -18,12 +21,18 @@ class MainJPanel {
     // JFrame frame;
     private final BookTable bookTable;
     private Model model;
+    private FileWorker fileWorker;
     public MainJPanel() {
         JFrame frame = new JFrame("Вторая лабораторная");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        Font font = new Font("Verdana", Font.ITALIC, 12);
+        //fileMenu.setFont(font);
+
+
         bookTable = new BookTable();
         model=new Model(bookTable.getTableModel());
+        fileWorker = new FileWorker(model.getTableModel());
         frame.add(bookTable, BorderLayout.CENTER);
 
 
@@ -36,7 +45,7 @@ class MainJPanel {
         JMenuItem jmRserch = new JMenuItem("Поиск записи");
 
         JMenuItem jmFirstP = new JMenuItem("Первая страница");
-        //jmFirstP.setFont(font);
+        jmFirstP.setFont(font);
         menuTable.add(jmFirstP);
         jmFirstP.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -45,8 +54,32 @@ class MainJPanel {
             }
         });
         JMenuItem jmLastP = new JMenuItem("Поcледняя страница");
+        jmLastP.setFont(font);
+        menuTable.add(jmLastP);
+        jmLastP.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.lastPage();
+                bookTable.updateRecord();
+            }
+        });
         JMenuItem jmNextP = new JMenuItem("Следующая страница");
-        JMenuItem jmPrevP = new JMenuItem("Предидущая страниц");
+        jmNextP.setFont(font);
+        menuTable.add(jmNextP);
+        jmNextP.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.nextPage();
+                bookTable.updateRecord();
+            }
+        });
+        JMenuItem jmPrevP = new JMenuItem("Предыдущая страница");
+        jmPrevP.setFont(font);
+        menuTable.add(jmPrevP);
+        jmPrevP.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.prevPage();
+                bookTable.updateRecord();
+            }
+        });
 
         menuBar.add(menuTable);
         menuTable.add(jmRadd);
@@ -60,13 +93,39 @@ class MainJPanel {
 
         JMenu size = new JMenu("Студентов на странице");
         menuTable.add(size);
+        size.setFont(font);
 
 
         JMenuItem fiveSize = new JMenuItem("5");
+        fiveSize.setFont(font);
+        size.add(fiveSize);
+        fiveSize.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.setRecordOnPage(5);
+                bookTable.updateRecord();
+            }
+        });
+
 
         JMenuItem tenSize = new JMenuItem("10");
+        tenSize.setFont(font);
+        size.add(tenSize);
+        tenSize.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.setRecordOnPage(10);
+                bookTable.updateRecord();
+            }
+        });
 
         JMenuItem fiftySize = new JMenuItem("50");
+        fiftySize.setFont(font);
+        size.add(fiftySize);
+        fiftySize.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                model.setRecordOnPage(50);
+                bookTable.updateRecord();
+            }
+        });
 
         size.add(fiveSize);
         size.add(tenSize);
@@ -75,11 +134,14 @@ class MainJPanel {
         JMenu menuFile = new JMenu("Файл");
 
         JMenuItem jmFopen = new JMenuItem("Открыть файл");
+
         JMenuItem jmFsave = new JMenuItem("Сохранить файл");
 
         menuBar.add(menuFile);
         menuFile.add(jmFopen);
         menuFile.add(jmFsave);
+
+
 
 
 
@@ -143,12 +205,60 @@ class MainJPanel {
         ImageIcon saveFile = new ImageIcon(".\\src\\View\\images\\save.png");
         JButton saveBut = new JButton(saveFile);
         toolbar.add(saveBut);
+        saveBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SaveFileRecord(fileWorker);
+            }
+        });
+        saveBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser filiOpener = new JFileChooser();
+                int ret = filiOpener.showDialog(null, "Сохранить файл");
+            }
+        });
+
+        jmFsave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SaveFileRecord(fileWorker);
+            }
+        });
+        jmFsave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser filiOpener = new JFileChooser();
+                int ret = filiOpener.showDialog(null, "Сохранить файл");
+                new SaveFileRecord(fileWorker);
+            }
+        });
+
 
         ImageIcon openFile = new ImageIcon(".\\src\\View\\images\\open.png");
         JButton openBut = new JButton(openFile);
         toolbar.add(openBut);
+        openBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new OpenFileRecord(bookTable,fileWorker);
+            }
+        });
 
         openBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser filiOpener = new JFileChooser();
+                int ret = filiOpener.showDialog(null, "Открыть файл");
+            }
+        });
+        jmFopen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new OpenFileRecord(bookTable,fileWorker);
+            }
+        });
+        jmFopen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser filiOpener = new JFileChooser();
@@ -171,9 +281,9 @@ class MainJPanel {
 
         for (int i = 0; i<8; i++) {
             bookTable.setValueAt(columnsHeaders[i], 0, i);
-        }
+        }*/
 
-        frame.add(bookTable);*/
+        frame.add(bookTable);
         frame.setPreferredSize(new Dimension(900, 500));
         frame.pack();
         frame.setLocationRelativeTo(null);

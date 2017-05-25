@@ -37,11 +37,11 @@ public class FindTotalVolumes {
         authBut.addActionListener(actionListener);
     }
 
-    public JPanel getPanel(){
+    public JPanel getPanel() {
         return panel;
     }
 
-    public String getTotalVolumes(){
+    public String getTotalVolumes() {
         return totalVolumes.getText();
     }
 
@@ -49,13 +49,16 @@ public class FindTotalVolumes {
         if (jrb1.isSelected()) {
             return 2;
         }
-        if (jrb2.isSelected()){return 1;}
+        if (jrb2.isSelected()) {
+            return 1;
+        }
         return 0;
     }
-    public SearchAbstrClass getSearchBook(){
-        if (getTotalVolumes().equals("") || getRadioBatton() == 0){
+
+    public SearchAbstrClass getSearchBook() {
+        if (getTotalVolumes().equals("") || getRadioBatton() == 0) {
             JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
         }
-        return new TotalVolumesSearch( getTotalVolumes(), getRadioBatton());
+        return new TotalVolumesSearch(getTotalVolumes(), getRadioBatton());
     }
 }

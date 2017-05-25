@@ -1,11 +1,9 @@
-package Window;
+package lab_2.View;
 
 import Model.BookTable;
 import lab_2.DelRecord;
-import lab_2.OpenFileRecord;
 import lab_2.SearchAndDelStr.FileWorker;
 import lab_2.SearchRecord;
-import lab_2.View.SaveFileRecord;
 import lab_2.addRecord;
 
 import javax.swing.*;
@@ -14,14 +12,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
-
 
 class MainJPanel {
     // JFrame frame;
     private final BookTable bookTable;
-    private Model model;
+    private Model.Model model;
     private FileWorker fileWorker;
+
     public MainJPanel() {
         JFrame frame = new JFrame("Вторая лабораторная");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -31,12 +28,12 @@ class MainJPanel {
 
 
         bookTable = new BookTable();
-        model=new Model(bookTable.getTableModel());
-        fileWorker = new FileWorker(model.getTableModel());
+        model = new Model.Model(bookTable.getTableModel());
+        fileWorker = new FileWorker(model);
         frame.add(bookTable, BorderLayout.CENTER);
 
 
-        JMenuBar  menuBar = new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
 
         JMenu menuTable = new JMenu("Таблица");
 
@@ -142,12 +139,9 @@ class MainJPanel {
         menuFile.add(jmFsave);
 
 
-
-
-
         frame.setJMenuBar(menuBar);
 
-        JToolBar  toolbar = new JToolBar();
+        JToolBar toolbar = new JToolBar();
         toolbar.setRollover(true);
 
         ImageIcon addRecord = new ImageIcon(".\\src\\View\\images\\add.png");
@@ -158,7 +152,7 @@ class MainJPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new addRecord(bookTable);
-        }
+            }
         });
         jmRadd.addActionListener(new ActionListener() {
             @Override
@@ -204,33 +198,38 @@ class MainJPanel {
 
         ImageIcon saveFile = new ImageIcon(".\\src\\View\\images\\save.png");
         JButton saveBut = new JButton(saveFile);
+        // saveItem.setFont(font);
         toolbar.add(saveBut);
         saveBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SaveFileRecord(fileWorker);
+                //new SaveFileRecord(fileWorker);
+                // fileWorker.saveFile.saveFile();
             }
         });
         saveBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser filiOpener = new JFileChooser();
-                int ret = filiOpener.showDialog(null, "Сохранить файл");
+                // int ret = filiOpener.showDialog(null, "Сохранить файл");
+                // new SaveFileRecord(fileWorker);
+                fileWorker.saveFile.saveFile();
             }
         });
 
-        jmFsave.addActionListener(new ActionListener() {
+       /* jmFsave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new SaveFileRecord(fileWorker);
             }
-        });
+        });*/
         jmFsave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser filiOpener = new JFileChooser();
+                fileWorker.saveFile.saveFile();
+                /*JFileChooser filiOpener = new JFileChooser();
                 int ret = filiOpener.showDialog(null, "Сохранить файл");
-                new SaveFileRecord(fileWorker);
+                new SaveFileRecord(fileWorker);*/
             }
         });
 
@@ -241,11 +240,13 @@ class MainJPanel {
         openBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new OpenFileRecord(bookTable,fileWorker);
+                //new OpenFileRecord(bookTable,fileWorker);
+                fileWorker.openFile.openFile();
+                bookTable.updateRecord();
             }
         });
 
-        openBut.addActionListener(new ActionListener() {
+        /*openBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser filiOpener = new JFileChooser();
@@ -257,12 +258,14 @@ class MainJPanel {
             public void actionPerformed(ActionEvent e) {
                 new OpenFileRecord(bookTable,fileWorker);
             }
-        });
+        });*/
         jmFopen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser filiOpener = new JFileChooser();
-                int ret = filiOpener.showDialog(null, "Открыть файл");
+                /*JFileChooser filiOpener = new JFileChooser();
+                int ret = filiOpener.showDialog(null, "Открыть файл");*/
+                fileWorker.openFile.openFile();
+                bookTable.updateRecord();
             }
         });
 
@@ -291,7 +294,6 @@ class MainJPanel {
 
 
     }
-
 
 
 }

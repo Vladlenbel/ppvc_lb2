@@ -1,7 +1,8 @@
 package lab_2;
+
+import Model.BookInfo;
 import Model.BookTable;
 import Model.TableModel;
-import Window.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ public class addRecord {
     private final JTextField textNameBook = new JTextField(30);
     private final JTextField textFirstNameAuthor = new JTextField(30);
     private final JTextField textLastNameAuthor = new JTextField(30);
-    private  final JTextField textSurNameAuthor = new JTextField(30);
+    private final JTextField textSurNameAuthor = new JTextField(30);
     private final JTextField textPublishingHouse = new JTextField(30);
     private final JTextField textNumberVolumes = new JTextField(30);
     private final JTextField textCirculation = new JTextField(30);
@@ -32,6 +33,7 @@ public class addRecord {
         createAddDialog();
         frameAdd.setVisible(true);
     }
+
     private JFrame createAddDialog() {
         frameAdd = new JFrame("Добавить запись");
         frameAdd.getContentPane().setLayout(new FlowLayout());
@@ -99,18 +101,17 @@ public class addRecord {
 
             bookTable.updateRecord();
 
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
         }
 
-                   /* Window.BookInfo bookInfo = new Window.BookInfo(textNameBook.getText(), textFirstNameAuthor.getText(),
+                   /* Model.BookInfo bookInfo = new Model.BookInfo(textNameBook.getText(), textFirstNameAuthor.getText(),
                             textLastNameAuthor.getText(), textSurNameAuthor.getText(),
                             textPublishingHouse.getText(), Integer.parseInt(textNumberVolumes.getText()),
                             Integer.parseInt(textCirculation.getText()), Integer.parseInt(textTotalVolumes.getText()));*/
 
-                    //bookIntoList.add(bookInfo);
-                    //visualBookInfoToList();
+        //bookIntoList.add(bookInfo);
+        //visualBookInfoToList();
 
                 /*}
                 frameAdd.dispose();*/
@@ -118,21 +119,20 @@ public class addRecord {
 
     }
 
-private  boolean isRecordCorrect(){
-    if (textNameBook.getText().length() == 0 || textFirstNameAuthor.getText().length() == 0
-            || textLastNameAuthor.getText().length() == 0 || textSurNameAuthor.getText().length() == 0
-            || textPublishingHouse.getText().length() == 0 || textNumberVolumes.getText().length() == 0
-            || textCirculation.getText().length() == 0 || textTotalVolumes.getText().length() == 0)
-    {
-        return false;
-        //JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
-    }
+    private boolean isRecordCorrect() {
+        if (textNameBook.getText().length() == 0 || textFirstNameAuthor.getText().length() == 0
+                || textLastNameAuthor.getText().length() == 0 || textSurNameAuthor.getText().length() == 0
+                || textPublishingHouse.getText().length() == 0 || textNumberVolumes.getText().length() == 0
+                || textCirculation.getText().length() == 0 || textTotalVolumes.getText().length() == 0) {
+            return false;
+            //JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
+        }
 
 
         return true;
 
 
-}
+    }
 
     public JFrame getFrame() {
 

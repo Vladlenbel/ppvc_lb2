@@ -1,8 +1,6 @@
 package lab_2.SearchAndDelStr;
 
-import Model.*;
-
-import Window.BookInfo;
+import Model.BookInfo;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -12,8 +10,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by user on 10.05.2017.
@@ -21,13 +17,11 @@ import java.util.List;
 public class OpenFile {
     private FileWorker fileWorker;
 
-    public OpenFile(FileWorker fileWorker)
-    {
+    public OpenFile(FileWorker fileWorker) {
         this.fileWorker = fileWorker;
     }
 
-   public void openFile()
-    {
+    public void openFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("xml", fileWorker.EXTENSION));
 
@@ -43,11 +37,11 @@ public class OpenFile {
                     private String firstName = "";
                     private String surName = "";
                     private String publishingHouse = "";
-                    private  String numberVolumes = "";
-                    private  String circulation = "";
+                    private String numberVolumes = "";
+                    private String circulation = "";
                     private String totalVolumes = "";
-                    private List<String> socialWork = new ArrayList<String>();
-                    boolean isSocialWork = false;
+                    // private List<String> socialWork = new ArrayList<String>();
+                    // boolean isSocialWork = false;
 
                     @Override
 
@@ -59,39 +53,26 @@ public class OpenFile {
                             nameBook = attributes.getValue(fileWorker.NAME_BOOK);
                             lastName = attributes.getValue(fileWorker.LAST_NAME_AUTHOR);
                             firstName = attributes.getValue(fileWorker.FIRST_NAME_AUTHOR);
-                            surName=attributes.getValue(fileWorker.SUR_NAME_AUTHOR);
-                            publishingHouse=attributes.getValue(fileWorker.PUBLISHING_HOUSE);
-                            numberVolumes=attributes.getValue(fileWorker.NUMBER_VOLUMES);
-                            circulation=attributes.getValue(fileWorker.CIRCULATION);
-                            totalVolumes=attributes.getValue(fileWorker.TOTAL_VOLUMES);
+                            surName = attributes.getValue(fileWorker.SUR_NAME_AUTHOR);
+                            publishingHouse = attributes.getValue(fileWorker.PUBLISHING_HOUSE);
+                            numberVolumes = attributes.getValue(fileWorker.NUMBER_VOLUMES);
+                            circulation = attributes.getValue(fileWorker.CIRCULATION);
+                            totalVolumes = attributes.getValue(fileWorker.TOTAL_VOLUMES);
                         }
-                        /*else if (qName.equalsIgnoreCase(fileWorker.SOCIAL_WORK)) {
-                            isSocialWork = true;
-                        }*/
+
                     }
 
                     @Override
                     public void endElement(String uri, String localName, String qName) throws SAXException {
-                        if(socialWork.size()==10){
-                            fileWorker.model.getBookInfo().add(new BookInfo(nameBook,
-                                    lastName,
-                                    firstName,
-                                    surName,
-                                    publishingHouse,
-                                    Integer.parseInt(numberVolumes),
-                                    Integer.parseInt(circulation),
-                                    Integer.parseInt(totalVolumes)));
-                            socialWork.clear();
-                        }
-                    }
 
-                    @Override
-
-                    public void characters(char ch[], int start, int length) throws SAXException {
-                        if (isSocialWork) {
-                            socialWork.add(new String(ch, start, length));
-                            isSocialWork = false;
-                        }
+                        fileWorker.model.getBookInfo().add(new BookInfo(nameBook,
+                                lastName,
+                                firstName,
+                                surName,
+                                publishingHouse,
+                                Integer.parseInt(numberVolumes),
+                                Integer.parseInt(circulation),
+                                Integer.parseInt(totalVolumes)));
                     }
 
                 };

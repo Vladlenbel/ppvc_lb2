@@ -22,13 +22,13 @@ public class FindPublHouseAndFio {
 
         panel = new JPanel();
         panel.add(new JLabel("Имя автора"));
-         firstNameAuthor = new JTextField(35);
+        firstNameAuthor = new JTextField(35);
         panel.add(firstNameAuthor);
         panel.add(new JLabel("Фамилия автора"));
         lastNameAuthor = new JTextField(35);
         panel.add(lastNameAuthor);
         panel.add(new JLabel("Отчество автора"));
-         surNameAuthor = new JTextField(35);
+        surNameAuthor = new JTextField(35);
         panel.add(surNameAuthor);
         panel.add(new JLabel("Издательство"));
         publishingHouse = new JTextField(35);
@@ -39,27 +39,29 @@ public class FindPublHouseAndFio {
         authBut.addActionListener(actionListener);
     }
 
-    public JPanel getPanel(){
+    public JPanel getPanel() {
         return panel;
     }
 
-    public String getFirstNameAuthor(){
+    public String getFirstNameAuthor() {
         return firstNameAuthor.getText();
     }
 
-    public String getLastNameAuthor(){
+    public String getLastNameAuthor() {
         return lastNameAuthor.getText();
     }
 
-    public String getSurNameAuthor(){
+    public String getSurNameAuthor() {
         return surNameAuthor.getText();
     }
 
-    public String getPublishingHouse(){return publishingHouse.getText(); }
+    public String getPublishingHouse() {
+        return publishingHouse.getText();
+    }
 
-    public SearchAbstrClass getSearchBook(){
-        if (getFirstNameAuthor().equals("")|| getLastNameAuthor().equals("")|| getSurNameAuthor().equals("") ||
-                getPublishingHouse().equals("")){
+    public SearchAbstrClass getSearchBook() {
+        if (getFirstNameAuthor().equals("") || getLastNameAuthor().equals("") || getSurNameAuthor().equals("") ||
+                getPublishingHouse().equals("")) {
             JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
         }
         return new NamePublHouseSearch(getLastNameAuthor(), getFirstNameAuthor(), getSurNameAuthor(), getPublishingHouse());

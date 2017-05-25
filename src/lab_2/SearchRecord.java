@@ -6,11 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
 
 import Model.TableModel;
-import Window.BookInfo;
+import Model.BookInfo;
 import lab_2.SearchAndDelStr.SearchBookRecord;
 
 
@@ -41,19 +40,19 @@ public class SearchRecord {
 
     private void searchBook() {
 
-       // if (!dialog.getLastName().equals("")) {
-            if (bookTable != null)
-                frame.remove(bookTable);
-            List<BookInfo> searchBook = new SearchBookRecord(dialog.getInfoTabPane()).searchPatternSearchAbstrClass(tableModel.getBookInfo());
-            bookTable = new BookTable();
-            bookTable.getTableModel().getBookInfo().addAll(searchBook);
-            bookTable.updateRecord();
-            //bookTable.setLocation(300,300);
-            frame.add(bookTable,BorderLayout.NORTH);
+        // if (!dialog.getLastName().equals("")) {
+        if (bookTable != null)
+            frame.remove(bookTable);
+        List<BookInfo> searchBook = new SearchBookRecord(dialog.getInfoTabPane()).searchPatternSearchAbstrClass(tableModel.getBookInfo());
+        bookTable = new BookTable();
+        bookTable.getTableModel().getBookInfo().addAll(searchBook);
+        bookTable.updateRecord();
+        //bookTable.setLocation(300,300);
+        frame.add(bookTable, BorderLayout.NORTH);
 
-            frame.setSize(new Dimension(850, 600));
-            frame.revalidate();
-            frame.repaint();
+        frame.setSize(new Dimension(850, 600));
+        frame.revalidate();
+        frame.repaint();
 
         /*} else {
             JOptionPane.showMessageDialog

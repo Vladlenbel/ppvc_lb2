@@ -9,11 +9,10 @@ import java.awt.event.ActionListener;
  * Created by Vladlen on 11.05.2017.
  */
 public class SaveFileRecord implements ActionListener {
-   private FileWorker fileWorker;
+    private FileWorker fileWorker;
 
-    public SaveFileRecord(FileWorker fileWorker)
-    {
-        this.fileWorker=fileWorker;
+    public SaveFileRecord(FileWorker fileWorker) {
+        this.fileWorker = fileWorker;
     }
 
     @Override

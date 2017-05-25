@@ -1,6 +1,6 @@
 package lab_2.SearchAndDelStr;
 
-import Window.BookInfo;
+import Model.BookInfo;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import java.util.List;
 public class SearchBookRecord {
     private SearchAbstrClass searchAbstrClass;
 
-    public SearchBookRecord(SearchAbstrClass searchAbstrClass){
+    public SearchBookRecord(SearchAbstrClass searchAbstrClass) {
         this.searchAbstrClass = searchAbstrClass;
     }
 
-    public List<BookInfo> searchPatternSearchAbstrClass(List<BookInfo> bookInfos){
+    public List<BookInfo> searchPatternSearchAbstrClass(List<BookInfo> bookInfos) {
         return searchAbstrClass.searchPattern(bookInfos);
     }
 }

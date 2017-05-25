@@ -1,7 +1,5 @@
-package Window;
+package Model;
 
-
-import Model.TableModel;
 
 import java.util.List;
 
@@ -13,8 +11,9 @@ public class Model {
     private TableModel tableModel;
 
     public Model(TableModel tableModel) {
-        this.tableModel=tableModel;
+        this.tableModel = tableModel;
     }
+
     public TableModel getTableModel() {
         return tableModel;
     }
@@ -37,5 +36,9 @@ public class Model {
 
     public void setRecordOnPage(int recordOnPage) {
         tableModel.setRecordOnPage(recordOnPage);
+    }
+
+    public List<BookInfo> getBookInfo() {
+        return tableModel.getBookInfo();
     }
 }

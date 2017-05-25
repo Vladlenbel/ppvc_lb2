@@ -1,6 +1,6 @@
 package lab_2.SearchAndDelStr;
 
-import Window.BookInfo;
+import Model.BookInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +27,11 @@ public class FioNumbVolumesSearch implements SearchAbstrClass {
     @Override
     public List<BookInfo> searchPattern(List<BookInfo> bookInfos) {
         List<BookInfo> searchBook = new ArrayList<BookInfo>();
-        for(BookInfo bookInfo:bookInfos)
-            if(FindMethod.correctName(lastName,bookInfo.getLastName()) &&
-                    FindMethod.correctName(firstName,bookInfo.getFirstName())
-                    && FindMethod.correctName(fatherName,bookInfo.getFatherName())&&
-                    FindMethod.numberInBoarder(Integer.parseInt(numberVolumesMin),Integer.parseInt(numberVolumesMax), bookInfo.getNumberVolumes() ) )
+        for (BookInfo bookInfo : bookInfos)
+            if (FindMethod.correctName(lastName, bookInfo.getLastName()) &&
+                    FindMethod.correctName(firstName, bookInfo.getFirstName())
+                    && FindMethod.correctName(fatherName, bookInfo.getFatherName()) &&
+                    FindMethod.numberInBoarder(Integer.parseInt(numberVolumesMin), Integer.parseInt(numberVolumesMax), bookInfo.getNumberVolumes()))
                 searchBook.add(bookInfo);
         return searchBook;
     }

@@ -1,6 +1,6 @@
 package lab_2.SearchAndDelStr;
 
-import Window.BookInfo;
+import Model.BookInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class TotalVolumesSearch implements SearchAbstrClass {
     private int radioBatton;
 
 
-    public TotalVolumesSearch (String totalVolumes, int radioBatton) {
+    public TotalVolumesSearch(String totalVolumes, int radioBatton) {
         this.totalVolumes = totalVolumes;
         this.radioBatton = radioBatton;
     }
@@ -21,8 +21,8 @@ public class TotalVolumesSearch implements SearchAbstrClass {
     @Override
     public List<BookInfo> searchPattern(List<BookInfo> bookInfos) {
         List<BookInfo> searchBook = new ArrayList<BookInfo>();
-        for(BookInfo bookInfo:bookInfos)
-            if(FindMethod.moreLessBoarder(Integer.parseInt(totalVolumes), bookInfo.getTotalVolumes(), radioBatton))
+        for (BookInfo bookInfo : bookInfos)
+            if (FindMethod.moreLessBoarder(Integer.parseInt(totalVolumes), bookInfo.getTotalVolumes(), radioBatton))
                 searchBook.add(bookInfo);
         return searchBook;
     }

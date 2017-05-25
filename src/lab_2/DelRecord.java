@@ -1,15 +1,13 @@
 package lab_2;
 
+import Model.BookInfo;
 import Model.BookTable;
 import Model.TableModel;
 import lab_2.SearchAndDelStr.SearchBookRecord;
-import Window.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
 
 /**
@@ -45,7 +43,7 @@ public class DelRecord {
         /*if (bookTable != null)
             frame.remove(bookTable);*/
         List<BookInfo> searchBook = new SearchBookRecord(dialog.getInfoTabPane()).searchPatternSearchAbstrClass(tableModel.getBookInfo());
-       // bookTable = new BookTable();
+        // bookTable = new BookTable();
         tableModel.getBookInfo().removeAll(searchBook);
         //bookTable.getTableModel().getBookInfo().addAll(searchBook);
         bookTable.updateRecord();

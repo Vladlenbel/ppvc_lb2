@@ -1,8 +1,5 @@
 package Model;
 
-import Window.BookInfo;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,7 @@ public class TableModel {
     private int recordOnPage;
 
 
-    public TableModel(){
+    public TableModel() {
 
         bookInfos = new ArrayList<BookInfo>();
         thisPage = 1;
@@ -28,10 +25,11 @@ public class TableModel {
 
     }
 
-    BookInfo get (int ind){
+    BookInfo get(int ind) {
         return bookInfos.get(ind);
     }
-    public  void add (BookInfo bookInfo){
+
+    public void add(BookInfo bookInfo) {
         bookInfos.add(bookInfo);
     }
 
@@ -39,36 +37,36 @@ public class TableModel {
         return recordOnPage;
     }
 
-    public int getThisPage(){
+    public int getThisPage() {
         return thisPage;
     }
 
-    public void nextPage(){
-        boolean hasNextPage=bookInfos.size() > recordOnPage * (thisPage - 1) + recordOnPage;
+    public void nextPage() {
+        boolean hasNextPage = bookInfos.size() > recordOnPage * (thisPage - 1) + recordOnPage;
         if (hasNextPage)
             thisPage++;
     }
 
-    public void prevPage(){
+    public void prevPage() {
         if (thisPage > 1)
             thisPage--;
 
     }
 
-    public void firstPage(){
+    public void firstPage() {
         if (thisPage > 1)
             thisPage = 1;
 
     }
 
-    public void lastPage(){
+    public void lastPage() {
         if (thisPage != getNumberMaxPage())
             thisPage = getNumberMaxPage();
 
     }
 
     public int getNumberMaxPage() {
-        return ((bookInfos.size() - 1)/ recordOnPage) + 1;
+        return ((bookInfos.size() - 1) / recordOnPage) + 1;
     }
 
     public void setRecordOnPage(int recordOnPage) {

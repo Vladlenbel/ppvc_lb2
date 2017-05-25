@@ -1,6 +1,6 @@
 package lab_2.SearchAndDelStr;
 
-import Window.BookInfo;
+import Model.BookInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ public class BookSearch implements SearchAbstrClass {
     @Override
     public List<BookInfo> searchPattern(List<BookInfo> bookInfos) {
         List<BookInfo> searchBook = new ArrayList<BookInfo>();
-        for(BookInfo bookInfo:bookInfos)
-            if(FindMethod.correctName(bookName,bookInfo.getBookName()) )
+        for (BookInfo bookInfo : bookInfos)
+            if (FindMethod.correctName(bookName, bookInfo.getBookName()))
                 searchBook.add(bookInfo);
         return searchBook;
     }

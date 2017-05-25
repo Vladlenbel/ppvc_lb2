@@ -1,6 +1,6 @@
 package lab_2.SearchAndDelStr;
 
-import Window.BookInfo;
+import Model.BookInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ public class NameSearch implements SearchAbstrClass {
     @Override
     public List<BookInfo> searchPattern(List<BookInfo> bookInfos) {
         List<BookInfo> searchBook = new ArrayList<BookInfo>();
-        for(BookInfo bookInfo:bookInfos)
-            if(FindMethod.correctName(lastName,bookInfo.getLastName()) && FindMethod.correctName(firstName,bookInfo.getFirstName())
-                    && FindMethod.correctName(fatherName,bookInfo.getFatherName()))
+        for (BookInfo bookInfo : bookInfos)
+            if (FindMethod.correctName(lastName, bookInfo.getLastName()) && FindMethod.correctName(firstName, bookInfo.getFirstName())
+                    && FindMethod.correctName(fatherName, bookInfo.getFatherName()))
                 searchBook.add(bookInfo);
         return searchBook;
     }

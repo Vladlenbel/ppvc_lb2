@@ -12,15 +12,14 @@ import java.awt.event.ActionListener;
 public class OpenFileRecord implements ActionListener {
     private BookTable bookTable;
     private FileWorker fileWorker;
-    public OpenFileRecord(BookTable bookTable, FileWorker fileWorker)
-    {
+
+    public OpenFileRecord(BookTable bookTable, FileWorker fileWorker) {
         this.fileWorker = fileWorker;
         this.bookTable = bookTable;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         fileWorker.openFile.openFile();
         bookTable.updateRecord();
     }

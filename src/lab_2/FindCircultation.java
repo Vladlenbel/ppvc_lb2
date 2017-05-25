@@ -25,7 +25,6 @@ public class FindCircultation {
         panel.add(circulation);
 
 
-
         ButtonGroup butGr = new ButtonGroup();
         butGr.add(jrb1);
         butGr.add(jrb2);
@@ -39,11 +38,11 @@ public class FindCircultation {
         authBut.addActionListener(actionListener);
     }
 
-    public JPanel getPanel(){
+    public JPanel getPanel() {
         return panel;
     }
 
-    public String getCirculation(){
+    public String getCirculation() {
         return circulation.getText();
     }
 
@@ -51,13 +50,16 @@ public class FindCircultation {
         if (jrb1.isSelected()) {
             return 2;
         }
-        if (jrb2.isSelected()){return 1;}
+        if (jrb2.isSelected()) {
+            return 1;
+        }
         return 0;
     }
-    public SearchAbstrClass getSearchBook(){
-        if (getCirculation().equals("") || getRadioBatton() == 0){
+
+    public SearchAbstrClass getSearchBook() {
+        if (getCirculation().equals("") || getRadioBatton() == 0) {
             JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
         }
-        return new CircultationSearch( getCirculation(), getRadioBatton());
+        return new CircultationSearch(getCirculation(), getRadioBatton());
     }
 }

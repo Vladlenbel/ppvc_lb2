@@ -1,21 +1,21 @@
-package Window;
+package Model;
 
 
 public class BookInfo {
     private String nameBook;
     private String firstNameAuthor;
     private String lastNameAuthor;
-    private  String surNameAuthor;
+    private String surNameAuthor;
     private String publishingHouse;
-    private  int numberVolumes;
-    private  int circulation;
+    private int numberVolumes;
+    private int circulation;
     private int totalVolumes;
 
-    public BookInfo (String nameBook, String firstName, String lastName, String surName, String publishingHouse, int numberVolumes, int circulation, int totalVolumes){
+    public BookInfo(String nameBook, String firstName, String lastName, String surName, String publishingHouse, int numberVolumes, int circulation, int totalVolumes) {
         this.nameBook = nameBook;
-        this.firstNameAuthor= firstName;
-        this.lastNameAuthor= lastName;
-        this.surNameAuthor= surName;
+        this.firstNameAuthor = firstName;
+        this.lastNameAuthor = lastName;
+        this.surNameAuthor = surName;
         this.publishingHouse = publishingHouse;
         this.numberVolumes = numberVolumes;
         this.circulation = circulation;

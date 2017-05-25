@@ -10,20 +10,19 @@ import java.awt.event.ActionListener;
  * Created by Vladlen on 10.05.2017.
  */
 public class Dialog {
-   private JFrame frame;
-   private FindFioAuthr findFioAuthr;
-   private  FindPublHouseAndFio findPublHouseAndFio;
-   private  FindNameBook findNameBook;
-   private FindFioAuthrAndNumberVolumes findFioAuthrAndNumberVolumes;
-   private FindCircultation findCircultation;
-   private FindTotalVolumes findTotalVolumes;
+    private JFrame frame;
+    private FindFioAuthr findFioAuthr;
+    private FindPublHouseAndFio findPublHouseAndFio;
+    private FindNameBook findNameBook;
+    private FindFioAuthrAndNumberVolumes findFioAuthrAndNumberVolumes;
+    private FindCircultation findCircultation;
+    private FindTotalVolumes findTotalVolumes;
     private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 
 
-
-    public Dialog(String titleName, ActionListener actionListener){
+    public Dialog(String titleName, ActionListener actionListener) {
         frame = new JFrame(titleName);
-       // final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+        // final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
         findFioAuthr = new FindFioAuthr(actionListener);
         findPublHouseAndFio = new FindPublHouseAndFio(actionListener);
         findNameBook = new FindNameBook(actionListener);
@@ -31,7 +30,7 @@ public class Dialog {
         findCircultation = new FindCircultation(actionListener);
         findTotalVolumes = new FindTotalVolumes(actionListener);
 
-        tabbedPane.add("Поиск по ФИО автора",findFioAuthr.getPanel());
+        tabbedPane.add("Поиск по ФИО автора", findFioAuthr.getPanel());
         tabbedPane.add("Поиск по издательству и ФИО автора", findPublHouseAndFio.getPanel());
         tabbedPane.add("Поиск по ФИО автора и числу томов", findFioAuthrAndNumberVolumes.getPanel());
         tabbedPane.add("Поиск по названию книги", findNameBook.getPanel());
@@ -47,31 +46,32 @@ public class Dialog {
         frame1.setVisible(true);*/
 
     }
+
     public JFrame getFrame() {
         return frame;
     }
 
 
-    public SearchAbstrClass getInfoTabPane(){
-        if (tabbedPane.getSelectedIndex() == 0 ){
-           return findFioAuthr.getSearchBook();
+    public SearchAbstrClass getInfoTabPane() {
+        if (tabbedPane.getSelectedIndex() == 0) {
+            return findFioAuthr.getSearchBook();
         }
 
-        if (tabbedPane.getSelectedIndex() == 1 ){
+        if (tabbedPane.getSelectedIndex() == 1) {
             return findPublHouseAndFio.getSearchBook();
         }
-        if (tabbedPane.getSelectedIndex() == 2 ){
+        if (tabbedPane.getSelectedIndex() == 2) {
             return findFioAuthrAndNumberVolumes.getSearchBook();
         }
 
-        if (tabbedPane.getSelectedIndex() == 3 ){
+        if (tabbedPane.getSelectedIndex() == 3) {
             return findNameBook.getSearchBook();
         }
 
-        if (tabbedPane.getSelectedIndex() == 4 ){
+        if (tabbedPane.getSelectedIndex() == 4) {
             return findCircultation.getSearchBook();
         }
-        return  findTotalVolumes.getSearchBook();
+        return findTotalVolumes.getSearchBook();
     }
 
    /* public String getBookName() {

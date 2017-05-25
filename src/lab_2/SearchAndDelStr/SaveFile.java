@@ -1,12 +1,12 @@
 package lab_2.SearchAndDelStr;
 
-import Window.BookInfo;
-import Model.*;
+import Model.BookInfo;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,10 +21,9 @@ import java.io.File;
  * Created by user on 10.05.2017.
  */
 public class SaveFile {
-    private  FileWorker fileWorker;
+    private FileWorker fileWorker;
 
-    public SaveFile(FileWorker fileWorker)
-    {
+    public SaveFile(FileWorker fileWorker) {
         this.fileWorker = fileWorker;
     }
 
@@ -33,6 +32,8 @@ public class SaveFile {
         try {
 
             JFileChooser fc = new JFileChooser();
+            fc.setFileFilter(new FileNameExtensionFilter("xml", fileWorker.EXTENSION));
+
             if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                 DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -49,7 +50,7 @@ public class SaveFile {
                     attr.setValue(bookInfo.getLastName());
                     bookEl.setAttributeNode(attr);
 
-                    attr  = doc.createAttribute(fileWorker.FIRST_NAME_AUTHOR);
+                    attr = doc.createAttribute(fileWorker.FIRST_NAME_AUTHOR);
                     attr.setValue(bookInfo.getFirstName());
                     bookEl.setAttributeNode(attr);
 
@@ -66,20 +67,22 @@ public class SaveFile {
                     bookEl.setAttributeNode(attr);
 
                     attr = doc.createAttribute(fileWorker.NUMBER_VOLUMES);
-                    attr.setValue( Integer.toString(bookInfo.getNumberVolumes()));
+                    attr.setValue(Integer.toString(bookInfo.getNumberVolumes()));
                     bookEl.setAttributeNode(attr);
 
                     attr = doc.createAttribute(fileWorker.CIRCULATION);
-                    attr.setValue( Integer.toString(bookInfo.getCirculation()));
+                    attr.setValue(Integer.toString(bookInfo.getCirculation()));
                     bookEl.setAttributeNode(attr);
 
                     attr = doc.createAttribute(fileWorker.TOTAL_VOLUMES);
-                    attr.setValue( Integer.toString(bookInfo.getTotalVolumes()));
+                    attr.setValue(Integer.toString(bookInfo.getTotalVolumes()));
                     bookEl.setAttributeNode(attr);
 
-                    bookEl.setAttributeNode(attr);
+                    //bookEl.appe
 
-                   /* for (String socialWork : bookInfo.getSemNumber()) {
+                    //bookEl.setAttributeNode(attr);
+
+                    /*for (String socialWork : bookInfo.getSemNumber()) {
                         Element firstname = doc.createElement(fileWorker.SOCIAL_WORK);
                         firstname.appendChild(doc.createTextNode(socialWork));
                         bookEl.appendChild(firstname);
@@ -97,7 +100,7 @@ public class SaveFile {
 
             JOptionPane.showMessageDialog(null, "Не удалось сохранить файл", "Ошибка", JOptionPane.ERROR_MESSAGE | JOptionPane.OK_OPTION);
 
-        }catch (TransformerException tfe) {
+        } catch (TransformerException tfe) {
 
             JOptionPane.showMessageDialog(null, "Не удалось сохранить файл", "Ошибка", JOptionPane.ERROR_MESSAGE | JOptionPane.OK_OPTION);
 

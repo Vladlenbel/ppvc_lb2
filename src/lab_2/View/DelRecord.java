@@ -1,33 +1,32 @@
-package lab_2;
+package lab_2.View;
 
-import Model.BookTable;
+import Model.BookInfo;
+import Model.TableModel;
+import lab_2.SearchAndDelStr.SearchBookRecord;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import Model.TableModel;
-import Model.BookInfo;
-import lab_2.SearchAndDelStr.SearchBookRecord;
-
-
 /**
  * Created by Vladlen on 11.04.2017.
  */
-public class SearchRecord {
+public class DelRecord {
     private JFrame frame;
     private Dialog dialog;
     private BookTable bookTable;
     private TableModel tableModel;
 
-    public SearchRecord(TableModel tableModel) {
-        this.tableModel = tableModel;
-        dialog = new Dialog("Поиск записи", new ActionListener() {
+
+    public DelRecord(BookTable bookTable) {
+
+        this.bookTable = bookTable;
+        tableModel = bookTable.getTableModel();
+        dialog = new Dialog("Удаление записи", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                searchBook();
+                deleteBook();
             }
         });
 
@@ -38,21 +37,28 @@ public class SearchRecord {
         frame.setVisible(true);
     }
 
-    private void searchBook() {
-
+    private void deleteBook() {
         // if (!dialog.getLastName().equals("")) {
-        if (bookTable != null)
-            frame.remove(bookTable);
+        /*if (bookTable != null)
+            frame.remove(bookTable);*/
         List<BookInfo> searchBook = new SearchBookRecord(dialog.getInfoTabPane()).searchPatternSearchAbstrClass(tableModel.getBookInfo());
-        bookTable = new BookTable();
-        bookTable.getTableModel().getBookInfo().addAll(searchBook);
+        // bookTable = new BookTable();
+        tableModel.getBookInfo().removeAll(searchBook);
+        //bookTable.getTableModel().getBookInfo().addAll(searchBook);
         bookTable.updateRecord();
+        if (searchBook.size() > 0) {
+            JOptionPane.showMessageDialog
+                    (null, "Удалено " + searchBook.size() + " книг", "Информация", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog
+                    (null, "Книга не найдена", "Внимание", JOptionPane.WARNING_MESSAGE);
+        }
         //bookTable.setLocation(300,300);
-        frame.add(bookTable, BorderLayout.NORTH);
+       /* frame.add(bookTable,BorderLayout.NORTH);
 
         frame.setSize(new Dimension(850, 600));
         frame.revalidate();
-        frame.repaint();
+        frame.repaint();*/
 
         /*} else {
             JOptionPane.showMessageDialog

@@ -1,7 +1,7 @@
-package lab_2;
+package lab_2.View;
 
 import Model.BookInfo;
-import Model.BookTable;
+import lab_2.View.BookTable;
 import Model.TableModel;
 
 import javax.swing.*;
@@ -42,14 +42,7 @@ public class addRecord {
         frameAdd.setLocationRelativeTo(null);
 
 
-       /* final JTextField textNameBook = new JTextField(30);
-        final JTextField textFirstNameAuthor = new JTextField(30);
-        final JTextField textLastNameAuthor = new JTextField(30);
-        final JTextField textSurNameAuthor = new JTextField(30);
-        final JTextField textPublishingHouse = new JTextField(30);
-        final JTextField textNumberVolumes = new JTextField(30);
-        final JTextField textCirculation = new JTextField(30);
-        final JTextField textTotalVolumes = new JTextField(30);*/
+
 
         addBut.setPreferredSize(new Dimension(250, 30));
 
@@ -86,7 +79,7 @@ public class addRecord {
     private void createNewrecord() {
 
         if (isRecordCorrect()) {
-            //JOptionPane.showMessageDialog(null, textNameBook.getText());
+
             BookInfo bookInfo = new BookInfo(
                     textNameBook.getText(),
                     textFirstNameAuthor.getText(),
@@ -105,18 +98,6 @@ public class addRecord {
             JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
         }
 
-                   /* Model.BookInfo bookInfo = new Model.BookInfo(textNameBook.getText(), textFirstNameAuthor.getText(),
-                            textLastNameAuthor.getText(), textSurNameAuthor.getText(),
-                            textPublishingHouse.getText(), Integer.parseInt(textNumberVolumes.getText()),
-                            Integer.parseInt(textCirculation.getText()), Integer.parseInt(textTotalVolumes.getText()));*/
-
-        //bookIntoList.add(bookInfo);
-        //visualBookInfoToList();
-
-                /*}
-                frameAdd.dispose();*/
-
-
     }
 
     private boolean isRecordCorrect() {
@@ -124,8 +105,7 @@ public class addRecord {
                 || textLastNameAuthor.getText().length() == 0 || textSurNameAuthor.getText().length() == 0
                 || textPublishingHouse.getText().length() == 0 || textNumberVolumes.getText().length() == 0
                 || textCirculation.getText().length() == 0 || textTotalVolumes.getText().length() == 0) {
-            return false;
-            //JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
+            return false;//JOptionPane.showMessageDialog(null, "Проверьте введенные данные!");
         }
 
 
@@ -134,34 +114,11 @@ public class addRecord {
 
     }
 
-    public JFrame getFrame() {
+   /* public JFrame getFrame() {
 
         return frameAdd;
-    }
-
-  /*  public void visualBookInfoToList(){
-        int sizeList = Global.bookIntoList.bookInfoList.size();
-        JTable bookTable = new JTable(sizeList+1, 8);
-        Object[] columnsHeaders = new String[]{"Название книги", "Имя автора", "Фамилия автора","Отчество автора","Издательство",
-                "Число томов", "Тираж", "Итого томов"};
-
-        for (int i = 0; i<8; i++) {
-            bookTable.setValueAt(columnsHeaders[i], 0, i);
-        }
-
-        for (int indList = 0; indList < sizeList; indList++) {
-            Object[] visual = new String[]{Global.bookIntoList.get(indList).nameBook, Global.bookIntoList.get(indList).firstNameAuthor,
-                    Global.bookIntoList.get(indList).lastNameAuthor, Global.bookIntoList.get(indList).surNameAuthor,
-                    Global.bookIntoList.get(indList).publishingHouse, Integer.toString(Global.bookIntoList.get(indList).numberVolumes),
-                    Integer.toString(Global.bookIntoList.get(indList).circulation), Integer.toString(Global.bookIntoList.get(indList).totalVolumes)};
-
-            for (int j = 0; j < 8; j++) {
-                bookTable.setValueAt(visual[j], indList+1, j);
-            }
-            Global.frame.add(bookTable);
-            Global.frame.setVisible(true);
-        }
     }*/
+
 }
 
 

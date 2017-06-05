@@ -1,4 +1,6 @@
-package Model;
+package lab_2.View;
+
+import Model.TableModel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
-package lab_2;
+package lab_2.View;
 
-import Model.BookTable;
+import lab_2.View.BookTable;
 import lab_2.SearchAndDelStr.FileWorker;
 
 import java.awt.event.ActionEvent;

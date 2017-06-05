@@ -1,10 +1,6 @@
 package lab_2.View;
 
-import Model.BookTable;
-import lab_2.DelRecord;
 import lab_2.SearchAndDelStr.FileWorker;
-import lab_2.SearchRecord;
-import lab_2.addRecord;
 
 import javax.swing.*;
 import java.awt.*;

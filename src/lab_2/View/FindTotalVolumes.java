@@ -1,4 +1,4 @@
-package lab_2;
+package lab_2.View;
 
 import lab_2.SearchAndDelStr.CircultationSearch;
 import lab_2.SearchAndDelStr.SearchAbstrClass;
